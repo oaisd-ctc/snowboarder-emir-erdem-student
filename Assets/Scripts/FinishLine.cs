@@ -5,11 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
+    [SerializeField] float timeToRestart = 1f; 
+
+    [SerializeField] ParticleSystem finishEffect;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            SceneManager.LoadScene(0);
+            finishEffect.Play();
+            Invoke("ReloadScene", timeToRestart);
         }
+    }
+
+
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }
